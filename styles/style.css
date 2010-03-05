@@ -176,11 +176,7 @@ div.form-label{
 /*end of forms*/
 
 /*start of forms*/
-div.error{
-	color: red;
-}
-
-p.error{
+.error{
 	color: red;
 }
 

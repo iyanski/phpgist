@@ -7,7 +7,7 @@
 					<div class="form-label">
 						Username: 
 					</div>
-					<input type="text" name="users[username]">
+					<input type="text" name="users[login]">
 				</div>
 				<div class="form-row">
 					<div class="form-label">

@@ -8,6 +8,7 @@ class Projects extends Controller {
 		$this->load->helper('html');
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Project','',TRUE);
+		$this->load->library('session');
 	}
 	
 	public function index(){
@@ -37,7 +38,6 @@ class Projects extends Controller {
 	}
 	
 	public function apply($id){
-		$this->load->library('session');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<p class="error">', '</div>');
 		$data['user'] = $this->session->userdata('user');

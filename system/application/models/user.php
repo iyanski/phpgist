@@ -20,10 +20,10 @@ class User extends Model
 	public function delete($id){}
 	
 	public function login($login){
-		$user = $this->db->get_where('users', array('login' => $login['username'], 'password' => md5($login['password'])));
+		$user = $this->db->get_where('users', array('login' => $login['login'], 'password' => md5($login['password'])));
 		$login = $user->result();
 		unset($login[0]->password);
-		return $login;
+		return !empty($login[0]) ? $login[0] : false;
 	}
 	
 	public function logout(){}
