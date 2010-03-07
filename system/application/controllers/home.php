@@ -23,6 +23,26 @@ class Home extends Controller {
 		$this->load->view('common/footer');
 	}
 	
+	function signup(){
+		$this->load->library('form_validation');
+		$this->load->view('common/html');
+		$this->load->view('common/head');
+		$this->load->view('common/body');
+		$this->load->view('common/menu');
+		//init active record for profile
+		$this->load->model('User','',TRUE);
+		if ($this->form_validation->run() == FALSE){
+			
+			$this->session->set_userdata('token', md5(time() + rand()));
+			$data['token'] = $this->session->userdata('token');
+			$this->load->view('home/signup', $data);
+			
+		}else{
+			
+		}
+		$this->load->view('common/footer');
+	}
+	
 	function post()
 	{
 		$this->load->library('form_validation');
@@ -163,6 +183,7 @@ class Home extends Controller {
 				$profile = $this->Profile->get_profile($user->id);
 				$account['id'] = $user->id;
 				$account['login'] = $user->login;
+				$account['profile_id'] = $profile->id;
 				$account['firstname'] = $profile->firstname;
 				$account['lastname'] = $profile->lastname;
 				$this->session->set_userdata('user', $account);

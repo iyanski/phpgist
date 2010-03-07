@@ -1,26 +1,32 @@
-
-		<div>
-			<h1>Login</h1>
-			<form method="POST">
-			<div class="form">
-				<div class="form-row">
-					<div class="form-label">
-						Username: 
-					</div>
-					<input type="text" name="users[login]">
+	
+	<style>
+		input{
+			padding: 3px;
+			font-size: 14px;
+		}
+	</style>
+	<div>
+		<h1>Login</h1>
+		<form method="POST">
+		<div class="form">
+			<div class="form-row">
+				<div class="form-label">
+					Username: 
 				</div>
-				<div class="form-row">
-					<div class="form-label">
-						Password: 
-					</div>
-					<input type="password" name="users[password]">
-				</div>
-				<div class="form-row">
-					<div class="form-label">
-						&nbsp; 
-					</div>
-					<input type="submit" value="Login">
-				</div>
+				<input type="text" name="users[login]">
 			</div>
-			</form>
+			<div class="form-row">
+				<div class="form-label">
+					Password: 
+				</div>
+				<input type="password" name="users[password]">
+			</div>
+			<div class="form-row">
+				<div class="form-label">
+					&nbsp; 
+				</div>
+				<input type="submit" value="Login">
+			</div>
 		</div>
+		</form>
+	</div>

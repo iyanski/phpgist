@@ -9,6 +9,7 @@ class Users extends Controller
 		$this->load->library('session');
 	}
 	
+	#API Calls
 	function auth(){
 		$this->load->model('User','',TRUE);
 		$this->load->model('Profile','',TRUE);
@@ -17,6 +18,7 @@ class Users extends Controller
 				$profile = $this->Profile->get_profile($user->id);
 				$account['id'] = $user->id;
 				$account['login'] = $user->login;
+				$account['profile_id'] = $profile->id;
 				$account['firstname'] = $profile->firstname;
 				$account['lastname'] = $profile->lastname;
 				$this->session->set_userdata('user', $account);

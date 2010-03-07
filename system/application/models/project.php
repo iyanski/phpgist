@@ -42,6 +42,11 @@ class Project extends Model
 		return $result->result();
 	}
 	
+	public function getmyprojects($profile_id){
+		$result = $this->db->query("SELECT projects.*, profile.id as profile_id FROM projects, profile WHERE profile.id = projects.profile_id AND profile.id = '{$profile_id}'");
+		return $result->result();
+	}
+	
 	public function featured(){
 		$this->db->select('*');
 		$this->db->from('projects');

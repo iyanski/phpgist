@@ -53,5 +53,23 @@ class Projects extends Controller {
 		$this->load->view('project/apply', $data);
 		$this->load->view('common/footer');
 	}
+	
+	#api calls
+	public function get_project($id=""){
+		if(!empty($id)){
+			$project = $this->Project->getproject($id);
+			$item['items'] = !empty($project) ? $project : "";
+			echo json_encode($item);
+		}
+	}
+	
+	public function get_applicants($project_id){
+		$this->load->model('Applicant','',TRUE);
+		if(!empty($project_id)){
+			$applicants = $this->Applicant->get_applicants($project_id);
+			$item['items'] = !empty($applicants) ? $applicants : "";
+			echo json_encode($item);
+		}
+	}
 
 }
