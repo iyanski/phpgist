@@ -152,6 +152,13 @@ ul.list{
 	margin: 0px;
 	padding: 0px;
 }
+ul.project_list{
+	display: inline;
+	list-style-image: none;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
 ul.menu{
 	display: inline;
 	list-style-image: none;
@@ -238,9 +245,17 @@ div.applicant_list_actions{
 	float:left;
 }
 
+div.applicant_list_experience{
+	float:left;
+}
+
 li.applicant_list_item{
 	clear: both;
 	height: 20px;
 	margin-bottom: 5px;
+}
+
+img.ajax_loader{
+	display: none;
 }
 /* end of listings */

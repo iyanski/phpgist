@@ -39,36 +39,90 @@ class Projects extends Controller {
 	
 	public function apply($id){
 		$this->load->library('form_validation');
+		$this->load->model('Applicant','',TRUE);
 		$this->form_validation->set_error_delimiters('<p class="error">', '</div>');
 		$data['user'] = $this->session->userdata('user');
 		$data['token'] = $this->session->userdata('token');
 		
-		$project = $this->Project->getprojectname($id);
-		$data['project'] = !empty($project) ? $project[0] : false;
+		$this->form_validation->set_rules('applicant[firstname]', 'First Name', 'required');
+		$this->form_validation->set_rules('applicant[lastname]', 'Last Name', 'required');
+		$this->form_validation->set_rules('applicant[email]', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('applicant[url]', 'Portfolio', 'required');
+		$this->form_validation->set_rules('applicant[resume]', 'Resume', 'required');
+		$this->form_validation->set_rules('applicant[coverletter]', 'Cover Letter', 'required');
+		$this->form_validation->set_rules('applicant[experience]', 'Years of Experience', 'required|numeric');
+		$this->form_validation->set_rules('i_agree', 'Agree to Terms and Conditions', 'required');
 		
 		$this->load->view('common/html');
 		$this->load->view('common/head');
 		$this->load->view('common/body');
 		$this->load->view('common/menu');
-		$this->load->view('project/apply', $data);
+		
+		if ($this->form_validation->run() == FALSE){
+			$project = $this->Project->getprojectname($id);
+			$data['project'] = !empty($project) ? $project[0] : false;
+			$this->load->view('project/apply', $data);
+		}else{
+			$project = $this->Applicant->create($id, $_POST['applicant']);
+			$this->load->view('project/applied');
+		}
+		
 		$this->load->view('common/footer');
+	}
+
+	public function save(){
+		$this->load->view('common/html');
+		$this->load->view('common/head');
+		$this->load->view('common/body');
+		$this->load->view('common/menu');
+		if(!empty($_POST['projects']['project_id'])){
+			$user = $this->session->userdata("user");
+			$project = $this->Project->edit($_POST['projects']['project_id'], $_POST['projects']);
+			echo $this->load->view('project/save');
+		}
+		$this->load->view('common/footer');
+		//header("Location: ".base_url()."account/dashboard");
 	}
 	
 	#api calls
 	public function get_project($id=""){
 		if(!empty($id)){
 			$project = $this->Project->getproject($id);
-			$item['items'] = !empty($project) ? $project : "";
+			if(!empty($project)){
+				$item['items'] = $project[0];
+				$item['items']->description = str_replace("\n","</p><p>",$project[0]->description);
+				$item['items']->qualifications = str_replace("\n","</p><p>",$project[0]->qualifications);
+				echo json_encode($item);
+			}
+		}
+	}
+	
+	public function edit($id=""){
+		if(!empty($id)){
+			$project = $this->Project->getproject($id);
+			if(!empty($project)){
+				$item['items'] = $project[0];
+				$item['items']->description = str_replace("</p><p>","\n",$project[0]->description);
+				$item['items']->qualifications = str_replace("</p><p>","\n",$project[0]->qualifications);
+				echo json_encode($item);
+			}
+		}
+	}
+	
+	public function get_applicants($id){
+		$this->load->model('Applicant','',TRUE);
+		if(!empty($id)){
+			$applicants = $this->Applicant->get_applicants_of($id);
+			$item['items'] = !empty($applicants) ? $applicants : "";
 			echo json_encode($item);
 		}
 	}
 	
-	public function get_applicants($project_id){
-		$this->load->model('Applicant','',TRUE);
-		if(!empty($project_id)){
-			$applicants = $this->Applicant->get_applicants($project_id);
-			$item['items'] = !empty($applicants) ? $applicants : "";
-			echo json_encode($item);
+	public function destroy($id){
+		if(!empty($id)){
+			$user = $this->session->userdata("user");
+			$project = $this->Project->delete($id, $user['profile_id']);
+			echo ($project) ? 1 : 0;
 		}
 	}
 

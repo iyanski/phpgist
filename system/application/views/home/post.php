@@ -53,6 +53,7 @@
 			<p><input class="form_post" type="text" name="profile[firstname]" value="firstname"> <input class="form_post" type="text" name="profile[lastname]" value="lastname"></p>
 			<?php }else{?>
 			<p><?php echo $user['lastname']?>, <?php echo $user['firstname']?> (<?php echo $email?>)</p>
+			<input type="hidden" name="project[email]" value="<?php echo $email?>">
 			<?php }?>
 			<input type="hidden" name="token" value="<?php echo $token?>">
 			<input type="hidden" id="account" name="account" value="old">

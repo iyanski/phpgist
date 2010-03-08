@@ -18,14 +18,24 @@ class Project extends Model
 		return $this->db->insert_id();
 	}
 	
-	public function edit($id, $project){}
+	public function edit($id, $data){
+		$data['description'] = str_replace("\n", "</p><p>", $data['description']);
+		$data['qualifications'] = str_replace("\n", "</p><p>", $data['qualifications']);
+		$this->db->where("id", $data['project_id']);
+		unset($data['project_id']);
+		return $this->db->update("projects", $data);
+	}
 	
-	public function delete($id){}
+	public function delete($project_id, $profile_id = ""){
+		$this->db->where("profile_id", $profile_id);
+		$this->db->where("id", $project_id);
+		return $this->db->delete("projects");
+	}
 	
 	public function getproject($id){
 		$this->db->select('projects.*, profile.company');
 		$this->db->from('projects');
-		$this->db->join('profile', 'profile.id = projects.profile_id');
+		$this->db->join('profile', "profile.id = projects.profile_id");
 		$this->db->where('projects.id', $id);
 		$this->db->order_by('projects.id', 'desc');
 		$result = $this->db->get();
@@ -53,6 +63,7 @@ class Project extends Model
 		$this->db->join('profile', 'profile.id = projects.profile_id');
 		$this->db->where('projects.is_featured', 'on');
 		$this->db->where('projects.is_public', 'on');
+		$this->db->where('profile.is_active', 'on');
 		$this->db->order_by('projects.id', 'desc');
 		$result = $this->db->get();
 		return $result->result();
@@ -61,8 +72,9 @@ class Project extends Model
 	public function recent(){
 		$this->db->select('*');
 		$this->db->from('projects');
-		$this->db->join('profile', 'profile.id = projects.profile_id');
+		$this->db->join('profile', "profile.id = projects.profile_id");
 		$this->db->where('projects.is_public', 'on');
+		$this->db->where('profile.is_active', 'on');
 		$this->db->order_by('projects.id', 'desc');
 		$result = $this->db->get();
 		return $result->result();

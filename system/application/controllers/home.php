@@ -136,6 +136,9 @@ class Home extends Controller {
 					//assign profile_id to project
 					$project = $_POST['project'];
 					$project['profile_id'] = $profile_id;
+					
+					//assign email to project
+					$project['email'] = $_POST['profile']['email'];
 
 					//create project
 					$this->Project->create($project);
@@ -187,7 +190,7 @@ class Home extends Controller {
 				$account['firstname'] = $profile->firstname;
 				$account['lastname'] = $profile->lastname;
 				$this->session->set_userdata('user', $account);
-				header('Location: '.base_url().'home/index');
+				header('Location: '.base_url().'account/index');
 			}
 		}
 
