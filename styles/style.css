@@ -238,11 +238,13 @@ div.applicant_list_posted_date{
 
 div.applicant_list_name{
 	float: left;
-	width: 200px;
+	width: 150px;
 }
 
 div.applicant_list_actions{
 	float:left;
+	width: 100px;
+	text-align: center;
 }
 
 div.applicant_list_experience{

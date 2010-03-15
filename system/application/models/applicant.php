@@ -10,6 +10,8 @@ class Applicant extends Model
 	public function create($project_id, $data){
 		$data['project_id'] = $project_id;
 		$data['created_on'] = date("Y-m-d h:i:s", time());
+		$data['coverletter'] = str_replace("\n", "</p><p>", $data['coverletter']);
+		$data['resume'] = str_replace("\n", "</p><p>", $data['resume']);
 		$this->db->insert('applicants',$data);
 		return $this->db->insert_id();
 	}
@@ -21,5 +23,15 @@ class Applicant extends Model
 		$this->db->order_by('applicants.id', 'desc');
 		$result = $this->db->get();
 		return $result->result();
+	}
+	
+	public function get_applicant($id){
+		$this->db->select('*, projects.id as project_id, projects.*');
+		$this->db->from('applicants');
+		$this->db->join('projects', "projects.id = applicants.project_id");
+		$this->db->where('applicants.id', $id);
+		$result = $this->db->get();
+		$applicant = $result->result();
+		return !empty($applicant) ? $applicant[0] : false;
 	}
 }

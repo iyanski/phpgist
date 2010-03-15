@@ -27,7 +27,28 @@ class Account extends Controller {
 		$this->load->view('common/head');
 		$this->load->view('common/body');
 		$this->load->view('common/menu');
-		$this->load->view('account/index', $data);
+		$this->load->view('account/dashboard', $data);
 		$this->load->view('common/footer');
+	}
+	
+	function application($applicant_id){
+		$this->load->model('Applicant','',TRUE);
+		$user = $this->session->userdata('user');
+		$data['profile_id'] = $user['profile_id'];
+		$data['applicant'] = $this->Applicant->get_applicant($applicant_id);
+		$data['title'] = "phpgist: Application for {$data['applicant']->name}";
+		$this->load->view('common/html', $data);
+		$this->load->view('common/head');
+		$this->load->view('common/body');
+		$this->load->view('common/menu');
+		$this->load->view('account/application', $data);
+		$this->load->view('common/footer');
+	}
+	
+	#API Calls
+	function resume($applicant_id){
+		$this->load->model('Applicant','',TRUE);
+		$item['items'] = $this->Applicant->get_applicant($applicant_id);
+		echo json_encode($item);
 	}
 }
