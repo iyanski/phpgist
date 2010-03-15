@@ -21,20 +21,26 @@
 				<li class="item">
 					<a href="<?php echo base_url()?>home/login" title="Login">Login</a>
 				</li>
-				<?php }else{?>
-					<li class="item">
-						<a href="<?php echo base_url()?>account/dashboard" title="Account">Account</a>
-					</li>
-				<li class="item">
-					<a href="<?php echo base_url()?>home/logout" title="Login">Logout</a>
-				</li>
-				<?php }?>
 				<li class="item">
 					<a href="<?php echo base_url()?>home/post" title="Post a Project">Post a Project</a>
 				</li>
 				<li class="item">
 					<a href="<?php echo base_url()?>home/page/1" title="About phpgist">About</a>
 				</li>
+				<?php }else{?>
+				<li class="item">
+					<a href="<?php echo base_url()?>account/dashboard" title="Account">Account</a>
+				</li>
+				<li class="item">
+					<a href="<?php echo base_url()?>home/post" title="Post a Project">Post a Project</a>
+				</li>
+				<li class="item">
+					<a href="<?php echo base_url()?>home/page/1" title="About phpgist">About</a>
+				</li>
+				<li class="item">
+					<a href="<?php echo base_url()?>home/logout" title="Login">Logout</a>
+				</li>
+				<?php }?>
 			</ul>
 		</div>
 	</div>

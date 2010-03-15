@@ -96,7 +96,7 @@
 					contents += "<li class='applicant_list_item'>";
 					contents += "<div class='applicant_list_name'>" + data.items[item].firstname + " " + data.items[item].lastname + "</div>";
 					contents += "<div class='applicant_list_posted_date'>" + data.items[item].created_on + "</div>";
-					contents += "<div class='applicant_list_experience'>" + data.items[item].experience + "</div>";
+					contents += "<div class='applicant_list_experience'>" + data.items[item].experience + "yr(s)</div>";
 					contents += "<div class='applicant_list_actions'><a href='<?php echo base_url()?>account/application/" + data.items[item].id + "'>open</a></div>";
 					contents += "</li>";
 				});

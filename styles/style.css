@@ -231,24 +231,24 @@ li.project_list_item{
 	margin-bottom: 5px;
 }
 
-div.applicant_list_posted_date{
-	float: left;
-	width: 200px;
-}
-
 div.applicant_list_name{
 	float: left;
-	width: 150px;
+	width: 170px;
+}
+
+div.applicant_list_posted_date{
+	float: left;
+	width: 160px;
+}
+
+div.applicant_list_experience{
+	float:left;
 }
 
 div.applicant_list_actions{
 	float:left;
 	width: 100px;
 	text-align: center;
-}
-
-div.applicant_list_experience{
-	float:left;
 }
 
 li.applicant_list_item{
