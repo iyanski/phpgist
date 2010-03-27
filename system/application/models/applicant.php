@@ -22,7 +22,11 @@ class Applicant extends Model
 		$this->db->where('applicants.project_id', $project_id);
 		$this->db->order_by('applicants.id', 'desc');
 		$result = $this->db->get();
-		return $result->result();
+		$results = $result->result();
+		if(!empty($results)) foreach($results as $key => $item){
+			$results[$key]->created_on = date("F d, Y", strtotime($results[$key]->created_on));
+		}
+		return $results;
 	}
 	
 	public function get_applicant($id){

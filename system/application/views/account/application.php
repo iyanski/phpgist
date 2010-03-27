@@ -9,7 +9,6 @@
 		$("a.view_resume").click(function(){
 			$.getJSON("<?php echo base_url()?>account/resume/" + $(this).attr("item"), function(data){
 				if(data != ""){
-					console.log(data.items);
 					$("div#dialog").html("<p>"+data.items.resume+"</p><p>Email: "+data.items.email+"</p>");
 					$("#dialog").dialog({
 						hide: 'slide',
