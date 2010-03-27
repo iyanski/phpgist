@@ -81,7 +81,7 @@ class Projects extends Controller {
 			echo $this->load->view('project/save');
 		}
 		$this->load->view('common/footer');
-		//header("Location: ".base_url()."account/dashboard");
+		header("Location: ".base_url()."account/dashboard");
 	}
 	
 	#api calls
